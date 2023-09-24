@@ -3,13 +3,13 @@ import { useRoutes } from 'react-router-dom';
 import Loadable from '../components/Loadable';
 
 // sample page routing
-const BeerListPage = Loadable(lazy(() => import('../views/BeersPage')));
+const BeersPage = Loadable(lazy(() => import('../views/Beers')));
 
 export default function Routes() {
     return useRoutes([
         {
             path: '/',
-            element: <BeerListPage />
+            element: <BeersPage />
         }
     ]);
 }
