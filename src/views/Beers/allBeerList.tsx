@@ -9,7 +9,6 @@ import { Box } from '@mui/system';
 
 // project imports
 import { Beer } from '../../types/beer';
-import './beers.css';
 
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => <Tooltip {...props} classes={{ popper: className }} />)({
     [`& .${tooltipClasses.tooltip}`]: {
@@ -17,6 +16,19 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => <To
         backgroundColor: 'black'
     }
 });
+
+// Styled component for the Card
+const CustomCard = styled(Card)`
+    height: 200;
+    box-shadow: 4px 8px 4px rgb(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+        box-shadow: 0px 0px 0px rgb(0, 0, 0, 0);
+        background-color: rgb(227, 241, 255);
+    }
+`;
 
 const AllBeerListPage = () => {
     const [page, setPage] = useState(1);
@@ -44,37 +56,66 @@ const AllBeerListPage = () => {
             console.error('Error fetching beer list:', error);
         }
     };
+
     return loading ? (
         <Box sx={{ display: 'flex' }} className="loading">
             <CircularProgress />
         </Box>
     ) : (
         <>
-            {beers?.map((beer: Beer, index: number) => (
-                <Card className="main-card">
-                    <CardContent>
-                        <Grid container className="beer-detail">
-                            <Grid item className="image-container">
-                                <CustomWidthTooltip
-                                    title="Ingredient: grain, hops, yeast, water"
-                                    arrow
-                                    TransitionComponent={Fade}
-                                    TransitionProps={{ timeout: 600 }}
-                                    placement="top"
-                                >
-                                    <img className="beer-image" src={beer.image_url} alt={`beer-${index}`} />
-                                </CustomWidthTooltip>
-                            </Grid>
-                            <Grid item className="beer-content">
-                                <Typography className="beer-name">{beer.name}</Typography>
-                                <Typography className="beer-tagline">{beer.tagline || ''}</Typography>
-                                <Typography className="beer-description">{beer.description || ''}</Typography>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-            ))}
-            <Grid display="flex" alignContent="center" justifyContent="center">
+            <Grid container spacing={4}>
+                {beers.length > 0
+                    ? beers.map((beer: Beer, index: number) => (
+                          <Grid key={index} item md={12} lg={6}>
+                              <CustomCard>
+                                  <CardContent sx={{ paddingLeft: '0px' }}>
+                                      <Grid container>
+                                          <Grid item xs={2} alignItems="center">
+                                              <CustomWidthTooltip
+                                                  title="Ingredient: grain, hops, yeast, water"
+                                                  arrow
+                                                  TransitionComponent={Fade}
+                                                  TransitionProps={{ timeout: 600 }}
+                                                  placement="top"
+                                              >
+                                                  <Grid sx={{ paddingTop: '16px', textAlign: 'center' }}>
+                                                      <img height="140px" width="34px" src={beer.image_url} alt={`beer-${index}`} />
+                                                  </Grid>
+                                              </CustomWidthTooltip>
+                                          </Grid>
+                                          <Grid
+                                              item
+                                              xs={10}
+                                              sx={{
+                                                  paddingTop: '14px',
+                                                  paddingBottom: '8px'
+                                              }}
+                                          >
+                                              <Typography variant="h4" component="div">
+                                                  {beer.name}
+                                              </Typography>
+                                              <Typography sx={{ color: 'rgb(211, 169, 86)', marginTop: '6px' }}>{beer.tagline}</Typography>
+                                              <Typography
+                                                  sx={{
+                                                      marginTop: '6px',
+                                                      display: '-webkit-box',
+                                                      WebkitBoxOrient: 'vertical',
+                                                      WebkitLineClamp: 2,
+                                                      overflow: 'hidden',
+                                                      textOverflow: 'ellipsis'
+                                                  }}
+                                              >
+                                                  {beer.description}
+                                              </Typography>
+                                          </Grid>
+                                      </Grid>
+                                  </CardContent>
+                              </CustomCard>
+                          </Grid>
+                      ))
+                    : null}
+            </Grid>
+            <Grid display="flex" alignContent="center" justifyContent="center" marginTop="12px">
                 <Button
                     sx={{
                         color: '#3687D0'
