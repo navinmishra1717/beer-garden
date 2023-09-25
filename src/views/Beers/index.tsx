@@ -19,13 +19,13 @@ const BeerListPage = () => {
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Box sx={{ borderBottom: 1, border: 'none' }}>
                     <TabList onChange={handleChange} aria-label="Beers page">
                         <Tab label="All Beers" value="1" />
                         <Tab label="My Beers" value="2" />
                     </TabList>
                 </Box>
-                <TabPanel value="1">
+                <TabPanel value="1" className="tab-panel">
                     <AllBeerListPage />
                 </TabPanel>
                 <TabPanel value="2">My Beers</TabPanel>
