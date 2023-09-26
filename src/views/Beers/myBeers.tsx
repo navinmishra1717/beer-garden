@@ -4,6 +4,8 @@ import { Beer } from '../../types/beer';
 import styled from 'styled-components';
 import AddBeer from './addBeer';
 import { CustomButton } from '../../components/CustomButton';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import BeersList from './beersList';
 
 const CustomLink = styled(Link)`
     text-decoration: none;
@@ -12,19 +14,29 @@ const CustomLink = styled(Link)`
 
 const CustomFixedButton = styled(CustomButton)`
     position: fixed;
-    right: 30px;
-    top: 50px;
+    right: 45px;
+    top: 36px;
 `;
 
 const MyBeerListPage = () => {
-    const [myBeers, setMyBeers] = useState<Beer[]>([]);
+    const [localBeers, setLocalBeers] = useLocalStorage('myBeers');
+    const [myBeers, setMyBeers] = useState<Beer[]>(localBeers() || []);
     const [open, setOpen] = React.useState(false);
+
+    useEffect(() => {
+        setLocalBeers(myBeers);
+    }, [setLocalBeers, myBeers]);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = (value?: string) => {
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSubmit = (values: any) => {
+        setMyBeers([...myBeers, values]);
         setOpen(false);
     };
 
@@ -32,14 +44,7 @@ const MyBeerListPage = () => {
         <Grid sx={{ position: 'relative' }}>
             <CustomFixedButton onClick={handleClickOpen}>Add a new beer</CustomFixedButton>
             {myBeers.length ? (
-                <Grid container>
-                    {myBeers?.map((beer) => (
-                        <Grid item>
-                            <Typography> This is my beers list page</Typography>
-                        </Grid>
-                    ))}
-                    ;
-                </Grid>
+                <BeersList beers={myBeers} />
             ) : (
                 <Grid container direction="column" marginTop="150px" alignItems="center">
                     <Typography>Nothing to see yet.</Typography>
@@ -48,7 +53,7 @@ const MyBeerListPage = () => {
                     </Typography>
                 </Grid>
             )}
-            <AddBeer open={open} onClose={handleClose} />
+            <AddBeer open={open} onClose={handleClose} onSubmit={handleSubmit} />
         </Grid>
     );
 };
