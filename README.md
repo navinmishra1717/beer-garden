@@ -1,6 +1,6 @@
 # Introduction
 
-This is beer list webpage on react and material 
+This is beer list webpage using react, typescript and material ui 
 
 # Getting Started
 
