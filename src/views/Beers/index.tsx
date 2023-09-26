@@ -6,6 +6,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import AllBeerListPage from './allBeerList';
+import MyBeerListPage from './myBeerList';
 
 // ==============================|| BEER LIST PAGE ||============================== //
 
@@ -25,10 +26,12 @@ const BeerListPage = () => {
                         <Tab label="My Beers" value="2" />
                     </TabList>
                 </Box>
-                <TabPanel value="1" className="tab-panel">
+                <TabPanel value="1">
                     <AllBeerListPage />
                 </TabPanel>
-                <TabPanel value="2">My Beers</TabPanel>
+                <TabPanel value="2">
+                    <MyBeerListPage />
+                </TabPanel>
             </TabContext>
         </Box>
     );

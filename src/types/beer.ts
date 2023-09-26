@@ -3,5 +3,4 @@ export interface Beer {
     image_url: string;
     tagline: string;
     description: string;
-    //add other attributes
 }
