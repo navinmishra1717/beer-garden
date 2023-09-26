@@ -118,7 +118,8 @@ const AllBeerListPage = () => {
             <Grid display="flex" alignContent="center" justifyContent="center" marginTop="12px">
                 <Button
                     sx={{
-                        color: '#3687D0'
+                        color: '#3687D0',
+                        textTransform: 'none'
                     }}
                     onClick={handleLoadMore}
                 >

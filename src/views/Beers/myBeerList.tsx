@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Link, Typography } from '@mui/material';
+import { Grid, Link, Typography } from '@mui/material';
 import { Beer } from '../../types/beer';
 import styled from 'styled-components';
 import AddBeer from './addBeer';
+import { CustomButton } from '../../components/CustomButton';
 
 const CustomLink = styled(Link)`
     text-decoration: none;
     cursor: pointer;
 `;
 
-const CustomButton = styled(Button)`
+const CustomFixedButton = styled(CustomButton)`
     position: fixed;
     right: 30px;
     top: 50px;
@@ -23,13 +24,13 @@ const MyBeerListPage = () => {
         setOpen(true);
     };
 
-    const handleClose = (value: string) => {
+    const handleClose = (value?: string) => {
         setOpen(false);
     };
 
     return (
         <Grid sx={{ position: 'relative' }}>
-            <CustomButton onClick={handleClickOpen}>Add a new beer</CustomButton>
+            <CustomFixedButton onClick={handleClickOpen}>Add a new beer</CustomFixedButton>
             {myBeers.length ? (
                 <Grid container>
                     {myBeers?.map((beer) => (
