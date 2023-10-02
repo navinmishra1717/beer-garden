@@ -14,9 +14,9 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                node-version: [16.x, 18.x]
+        # strategy:
+        #     matrix:
+        #         node-version: [16.x, 18.x]
 
         # environment:
         #     name: github-pages
@@ -31,7 +31,8 @@ jobs:
               #action to install the specified version of the Node.js software package on the runner
               uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node-version }}
+                  #   node-version: ${{ matrix.node-version }}
+                  node-version: 16
                   cache: npm
 
             - name: Install Dependencies
