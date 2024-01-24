@@ -8,7 +8,7 @@ const BeersPage = Loadable(lazy(() => import('../views/Beers')));
 export default function Routes() {
     return useRoutes([
         {
-            path: '/',
+            path: '/beer-garden',
             element: <BeersPage />
         }
     ]);
