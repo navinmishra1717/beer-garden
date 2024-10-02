@@ -25,8 +25,10 @@ const AllBeerListPage = () => {
 
     const fetchAllBeers = async () => {
         try {
-            const response = await fetch(`https://api.punkapi.com/v2/beers?page=${page}&per_page=${perPage}
-            `);
+            // const response = await fetch(`https://api.openbrewerydb.org/v1/breweries?page=${page}&per_page=${perPage}
+            // `);
+            const response = await fetch(`https://api.sampleapis.com/beers/ale`);
+
             const data = await response.json();
             setBeers([...beers, ...data]);
             setLoading(false);
