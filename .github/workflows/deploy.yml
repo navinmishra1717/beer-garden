@@ -54,5 +54,5 @@ jobs:
               #   id: deployment
               uses: actions/deploy-pages@v4
               with:
-                  artifact-name: public-files
+                  artifact_name: public-files
                   #   branch: gh-pages
